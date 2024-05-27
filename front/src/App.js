@@ -4,7 +4,6 @@ import { Fragment, useState, useEffect } from 'react';
 import TranslateSection from './components/translateSection/TraslateSection';
 import WordLibrarySection from './components/wordLibrarySection/WordLibrarySection';
 
-
 export default function App() {
   const [tab, setTab] = useState('main');
   const [showButton, setShowButton] = useState(false);

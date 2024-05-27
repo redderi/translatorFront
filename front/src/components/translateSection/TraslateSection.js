@@ -9,8 +9,6 @@ const handleTranslate = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/api/texts/find/byText/${sourceText}`);
     const { translations, languages } = response.data;
-
-    // Find all translations that have a matching language
     const allTranslations = translations;
     const allLanguages = languages;
 
@@ -19,7 +17,7 @@ const handleTranslate = async () => {
       allTranslations.forEach((translation) => {
         combinedTranslation += translation.translatedText + ', ';
       });
-      combinedTranslation = combinedTranslation.trim().slice(0, -1); // Remove the last comma
+      combinedTranslation = combinedTranslation.trim().slice(0, -1);
 
       let languageList = '';
       allLanguages.forEach((language) => {

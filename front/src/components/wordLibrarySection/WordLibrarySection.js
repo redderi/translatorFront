@@ -6,17 +6,17 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 export default function WordLibrarySection() {
 	const [words, setWords] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
-	const [itemsPerPage, setItemsPerPage] = useState(5);
+	const [itemsPerPage] = useState(5);
 	const [totalPages, setTotalPages] = useState(0);
 	const [editingWordId, setEditingWordId] = useState(null);
 	const [newText, setNewText] = useState('');
-	const [searchText, setSearchText] = useState('');
+	const [searchText] = useState('');
 	const [showCreateInput, setShowCreateInput] = useState(false);
 	const [newTextToTranslate, setNewTextToTranslate] = useState('');
 	const [newTranslation, setNewTranslation] = useState('');
 	const [newLanguage, setNewLanguage] = useState('');
-	const [translations, setTranslations] = useState([]);
-	const [languages, setLanguages] = useState([]);
+	const [setTranslations] = useState([]);
+	const [setLanguages] = useState([]);
 
 	const handleTextChange = (e) => {
 		setNewTextToTranslate(e.target.value);
@@ -32,7 +32,6 @@ export default function WordLibrarySection() {
 
 	const createNewWord = async () => {
 		try {
-			// Создаем текст
 			const textResponse = await fetch('http://localhost:8080/api/texts/create', {
 				method: 'POST',
 				headers: {
@@ -53,8 +52,6 @@ export default function WordLibrarySection() {
 				}),
 			});
 			const newText = await textResponse.json();
-
-			// Обновляем состояние
 			setWords([...words, newText]);
 			setShowCreateInput(false);
 		} catch (error) {
@@ -124,7 +121,7 @@ export default function WordLibrarySection() {
 	};
 
 	const saveEditedWord = async () => {
-		if (editingWordId === null) return; // Проверяем, что мы в режиме редактирования
+		if (editingWordId === null) return;
 
 		try {
 			const response = await fetch(`http://localhost:8080/api/texts/change?textId=${editingWordId}&text=${newText}`, {
@@ -136,7 +133,6 @@ export default function WordLibrarySection() {
 			});
 
 			if (response.ok) {
-				// Обновляем состояние words
 				const updatedWords = words.map((word) =>
 					word.id === editingWordId ? { ...word, text: newText } : word
 				);
